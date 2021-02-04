@@ -1,0 +1,4 @@
+{
+  "watch": ["scripts/**/*.js"],
+  "exec": "webpack serve --config=scripts/webpack.dev.js"
+}
