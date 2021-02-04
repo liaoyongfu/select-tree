@@ -7,15 +7,15 @@
 ## 安装
 
 ````
-yarn add select-tree
+yarn add react-select-tree
 ````
 
 ## 使用
 
 ````
 import React from 'react';
-import SelectTree, { useSelectTree } from 'select-tree';
-import 'select-tree/dist/select-tree.css';
+import SelectTree, { useSelectTree } from 'react-select-tree';
+import 'react-select-tree/dist/react-select-tree.css';
 
 const treeData: TreeNodeNormal[] = [
   {
