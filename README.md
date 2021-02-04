@@ -1,6 +1,6 @@
 # 树选择器组件
 
-[!demo](demo.jpg)
+![demo](demo.jpg)
 
 基于 Antd 的 Tree 组件进行扩展以在业务中便捷使用。
 
