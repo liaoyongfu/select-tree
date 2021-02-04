@@ -1,7 +1,9 @@
 import SelectTree from './SelectTree';
+import Panel from './SelectTree/Panel';
 import useSelectTree from './SelectTree/hooks';
 
 export {
-  useSelectTree
+  useSelectTree,
+  Panel
 };
 export default SelectTree;
