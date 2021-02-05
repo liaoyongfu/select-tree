@@ -10,7 +10,8 @@ module.exports = merge(base, {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: `${pkg.name}.js`
+    filename: `${pkg.name}.js`,
+    libraryTarget: 'umd'
   },
   module: {
     rules: [

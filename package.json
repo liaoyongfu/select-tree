@@ -1,7 +1,7 @@
 {
   "name": "react-select-tree",
   "description": "树选择器组件",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "main": "dist/react-select-tree.js",
   "license": "MIT",
   "scripts": {
