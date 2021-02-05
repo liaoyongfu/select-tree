@@ -4,6 +4,10 @@
 
 基于 Antd 的 Tree 组件进行扩展以在业务中便捷使用。
 
+## Demo
+
+https://codesandbox.io/s/react-select-tree-demo-6wru0
+
 ## 安装
 
 ````
