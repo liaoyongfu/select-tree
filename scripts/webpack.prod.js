@@ -41,7 +41,8 @@ module.exports = merge(base, {
     ]
   },
   externals: [nodeExternals()],
-  plugins: [new MiniCssExtractPlugin({
-    filename: `${pkg.name}.css`
-  })],
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: `${pkg.name}.css`
+    })],
 });

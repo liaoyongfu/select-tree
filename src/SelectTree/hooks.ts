@@ -44,7 +44,6 @@ const useSelectTree = ({
     parentKeys: string[]
   })[] = [];
   const generateList = (data: TreeNodeNormal[], parentKeys: string[]) => {
-    console.info('>>>', parentKeys);
     for (let i = 0; i < data.length; i++) {
       const node = data[i];
       dataList.push({
@@ -77,7 +76,7 @@ const useSelectTree = ({
       checked: string[];
       halfChecked: string[];
   }) => {
-    setCheckedKeys(curCheckedKeys);
+    onChange(curCheckedKeys);
   };
 
   const onSelect = (curSelectedKeys: string[]) => {
