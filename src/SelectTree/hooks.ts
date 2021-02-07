@@ -72,10 +72,7 @@ const useSelectTree = ({
     setCheckedKeys(curCheckedKeys);
   };
 
-  const onCheck = (curCheckedKeys: string[] | {
-      checked: string[];
-      halfChecked: string[];
-  }) => {
+  const onCheck = (curCheckedKeys: string[] | { checked: string[]; halfChecked: string[] }) => {
     onChange(curCheckedKeys);
   };
 

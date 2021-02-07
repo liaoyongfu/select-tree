@@ -89,8 +89,24 @@ SelectTree 组件扩展 Antd 的 Tree 组件，具体属性请参考 Antd 的 Tr
 | rightTitle    |  右侧标题  | string |  '标签名称'  |
 | placeholder    |  搜索框占位符  | string |  'Search'  |
 | prefix    |  类名前缀  | string |  'select-tree'  |
-| onChange    |  更改回调  | (checkedKeys) => void |  -  |
+| onlyFilterItem | 是否是显示匹配搜索的项 | boolean | false |
 
 ## useSelectTree
 
-自定义 hooks，抽离了大多数逻辑
+自定义 hooks，抽离了大多数逻辑，返回：
+
+````
+{
+    onExpand,
+    onCheck,
+    onSelect,
+    expandedKeys,
+    checkedKeys,
+    selectedKeys,
+    autoExpandParent,
+    searchValue,
+    onSearchChange,
+    // 平级数据
+    dataList,
+}
+````

@@ -1,5 +1,7 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React, { FormEvent, ChangeEventHandler, ReactNode } from 'react';
+/* eslint-disable react/jsx-props-no-spreading,no-nested-ternary */
+import React, {
+  FormEvent, ChangeEventHandler, ReactNode, ReactElement
+} from 'react';
 import cn from 'classnames';
 import { TreeNodeNormal } from 'antd/es/tree/Tree';
 import { Input, Tree, Tag } from 'antd';
@@ -24,7 +26,37 @@ export interface SelectTreeProps extends TreeProps {
   leftTitle?: ReactNode;
   rightTitle?: ReactNode;
   placeholder?: string;
+  onlyFilterItem?: boolean;
 }
+
+const isMatchTitle = (title: ReactNode | undefined, searchValue: string) => {
+  if (!title || typeof title !== 'string') {
+    return {
+      match: false,
+      index: -1,
+      beforeStr: '',
+      afterStr: ''
+    };
+  }
+  const index = title?.indexOf(searchValue);
+  const beforeStr = title?.substr(0, index);
+  const afterStr = title?.substr(index + searchValue.length);
+  return {
+    match: index > -1,
+    index,
+    beforeStr,
+    afterStr
+  };
+};
+const getChildrenMatch = (children: TreeNodeNormal[] | undefined, searchValue: string): boolean => {
+  if (!children || children.length === 0) return false;
+
+  return children.some((item) => {
+    const { match } = isMatchTitle(item.title, searchValue);
+
+    return match || getChildrenMatch(item.children, searchValue);
+  });
+};
 
 const SelectTree = ({
   prefix = 'select-tree',
@@ -35,15 +67,14 @@ const SelectTree = ({
   leftTitle = '标签目录',
   rightTitle = '标签名称',
   placeholder = 'Search',
+  onlyFilterItem = false,
   ...props
 }: SelectTreeProps) => {
-  const { checkedKeys, onChange } = props;
-  const loop = (data: TreeNodeNormal[]) => data.map((item) => {
-    if (!item.title || typeof item.title !== 'string') return <span>{item.title}</span>;
-    const index = item.title?.indexOf(searchValue);
-    const beforeStr = item.title?.substr(0, index);
-    const afterStr = item.title?.substr(index + searchValue.length);
-    const title = index > -1 ? (
+  const { checkedKeys, onCheck } = props;
+  const loop = (data: TreeNodeNormal[]) => data.map((item): ReactElement => {
+    const { match, beforeStr, afterStr } = isMatchTitle(item.title, searchValue);
+    const childrenMatch = getChildrenMatch(item.children, searchValue);
+    const title = match ? (
       <span>
         {beforeStr}
         <span style={{ color: '#f50' }}>{searchValue}</span>
@@ -54,22 +85,23 @@ const SelectTree = ({
     );
     if (item.children) {
       return (
-        <TreeNode key={item.key} title={title}>
+        <TreeNode className={(match || childrenMatch) ? '' : (onlyFilterItem ? `${prefix}-hide` : '')} key={item.key} title={title}>
           {loop(item.children)}
         </TreeNode>
       );
     }
-    return <TreeNode key={item.key} title={title} />;
+    return <TreeNode className={match ? '' : (onlyFilterItem ? `${prefix}-hide` : '')} key={item.key} title={title} />;
   });
   const getCheckedLabel = ((data: string[]) => data.map((key) => dataList.find((item) => item.key === key && (!item.children || item.children.length === 0)) && (
   <Tag
     closable
     onClose={(e: FormEvent) => {
       e.preventDefault();
-      if (!onChange) return;
+      if (!onCheck) return;
       if (Array.isArray(checkedKeys)) {
         // 去掉父级
-        onChange(checkedKeys.filter((item) => item !== key && !dataList.find((a) => a.key === key)!.parentKeys.includes(item)));
+        // @ts-ignore
+        onCheck(checkedKeys.filter((item) => item !== key && !dataList.find((a) => a.key === key)!.parentKeys.includes(item)));
       }
     }}
   >

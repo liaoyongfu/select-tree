@@ -57,7 +57,18 @@ const App = () => {
   });
   return (
     <div>
-      <SelectTree leftTitle="左侧标题" rightTitle="右侧标题" placeholder="请输入关键字" treeData={treeData} {...treeState} />
+      <SelectTree
+        leftTitle="左侧标题"
+        rightTitle="右侧标题"
+        placeholder="请输入关键字"
+        treeData={treeData}
+        onlyFilterItem
+        {...treeState}
+        onCheck={(checkedKeys) => {
+          console.info('checkedKeys:', checkedKeys);
+          treeState.onCheck(checkedKeys);
+        }}
+      />
     </div>
   );
 };
