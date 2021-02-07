@@ -27,6 +27,8 @@
     flex: 1;
     border: 1px solid #ccc;
     height: 500px;
+    display: flex;
+    flex-direction: column;
 
     &:first-child {
       margin-right: 10px;
@@ -45,25 +47,19 @@
     &-body {
       padding: 10px;
       flex: 1;
-      overflow: hidden;
-    }
-  }
-
-  &-search-box {
-    display: flex;
-    flex-direction: column;
-
-    .@{prefix}-searchbar {
-      margin-bottom: 8px;
+      overflow: auto;
     }
 
-    .@{prefix}-panel-body {
-      display: flex;
-      flex-direction: column;
+    &.@{prefix}-search-box {
+      .@{prefix}-panel-body {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
 
-      .@{prefix}-tree {
-        flex: 1;
-        overflow: auto;
+        .@{prefix}-tree {
+          overflow: auto;
+          flex: 1;
+        }
       }
     }
   }

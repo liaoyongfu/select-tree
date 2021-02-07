@@ -91,7 +91,7 @@ const SelectTree = ({
           </Tree>
         </div>
       </Panel>
-      <Panel prefix={prefix} title={rightTitle}>
+      <Panel className={`${prefix}-selected`} prefix={prefix} title={rightTitle}>
         {Array.isArray(checkedKeys) && getCheckedLabel(checkedKeys)}
         {/* {!Array.isArray(checkedKeys) && getCheckedLabel(checkedKeys?.checked ?? [])} */}
       </Panel>
